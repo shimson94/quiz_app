@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block maincontent %}
+<div class="row">
+    <div class="col-md-6">
+        <h3>Select criteria to generate a quiz</h3>
+        <form action="/generate-quiz" method="post" class="row g-3" id="generateQuiz">
+        <!-- Form to submit the subject and how many questions the user would like in the quiz -->
+            <div class="col-md-6">
+                <label for="subject" class="form-label">Subject<span class="text-danger">*</span></label>
+                <select class="form-control" name="subject" id="subject" required>
+                    <option value="">Select Subject</option>
+                    {% for subject in listSubjects %}
+                    <!-- listSubjects passed from app.py -->
+                    <!-- Loops through all subjects available that is stored in subjects table in database -->
+                    <option value="{{subject[0]}}">{{subject[1]}}</option>
+                    {% endfor %}
+                </select>
+                <div class="invalid-feedback">Please enter a subject</div>
+            </div>
+            <div class="col-md-6">
+                <label for="questions" class="form-label">Number of questions</label>
+                <input type="number" min="1" max="20" class="form-control" name="questions" id="questions" required>
+                <div class="invalid-feedback">Please enter a number of questions you would like.</div>
+            </div>
+            
+            <div class="col-md-12">
+                <input type="submit" value="Generate Quiz" class="btn btn-info">
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <h3>Instructions</h3>
+        <ul>
+            <li>Select a subject you would like to take a quiz in.</li>
+            <li>Select how many questions you would like in the quiz.</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

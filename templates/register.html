@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+<!-- Extend from base template -->
+
+{% block maincontent %}
+<h3>Registration<small class="text-muted"> Please fill up necessary fields to create an account.</small></h3>
+<div class="row">
+    <!-- Create form which asks for first name, last name, email, user type, password -->
+    <!-- Required at the end of each input means that the form can not be submitted blank for validation -->
+    <form action="/register" method="post" class="row g-3" id="register">
+        <div class="col-md-6">
+            <label for="first_name" class="form-label">First Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="first_name" id="first_name" required>
+            <div class="invalid-feedback">Please enter first name.</div>
+        </div>
+        <div class="col-md-6">
+            <label for="last_name" class="form-label">Last Name</label>
+            <input type="text" class="form-control" name="last_name" id="last_name" required>
+            <div class="invalid-feedback">Please enter last name.</div>
+        </div>
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="email" required>
+            <div class="invalid-feedback">Please enter an email.</div>
+        </div>
+        <div class="col-md-6">
+            <label for="user_type" class="form-label">Select user type</label>
+            <!-- Dropdown to select only two options to avoid spelling differences when querying the user type later in the program -->
+            <select name="user_type" id="user_type" class="form-control">
+                <option value="">Are you a teacher or a student?</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Student">Student</option>
+            </select>
+            <div class="invalid-feedback">Please select a user type.</div>
+        </div>
+        <div class="col-md-6">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="password" required>
+            <div class="invalid-feedback">Please enter a password.</div>
+            <!-- Explain requirements that the password must follow -->
+            <div>
+                <div class="text-danger" id="err1">- Password must contain least 6 characters</div>
+                <div class="text-danger" id="err2">- Must include a number</div>
+                <div class="text-danger" id="err3">- Must include a lowercase letter</div>
+                <div class="text-danger" id="err4">- Must include an uppercase letter</div>
+                <div class="text-danger" id="err5">- Must include a special letter (e.g. ! $ & # @ £)</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="repeat_password" class="form-label">Repeat Password</label>
+            <input type="password" class="form-control" name="repeat_password" id="repeat_password" required>
+            <div class="invalid-feedback">Please enter a matching password.</div>
+        </div>
+        <div class="col-md-12">
+            <input type="hidden" name="form" value="registration">
+            <input type="submit" value="Register" class="btn btn-info">
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+main{
+    min-height: 400px;
+}
+
+#quizLogo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    /* Centralise and adjust quiz logo image size */
+}

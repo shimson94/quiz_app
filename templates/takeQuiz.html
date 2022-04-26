@@ -1,0 +1,42 @@
+{% extends "base.html" %}{% block maincontent %}
+<div class="row">
+    <div class="col-md-12">
+        <h3>Quiz</h3>
+        <!-- Form to take quiz - shows question and allows you to choose only one option -->
+        <form action="/take-quiz?quiz={{quiz}}" method="post" class="row g-3" id="takeQuiz">
+            {% for question in listQuestions %}
+            <!-- listQuestions passed from app.py -->
+            <!-- listQuestions gets questions from questions table in database (limited by how many questions user specified) -->
+            
+            <div class="col-md-12"><p>{{question[3]}}</p></div>
+            <!-- Display question -->
+            <div class="col-md-12">
+                <input type="hidden" name="questions" value="{{question[1]}}">
+                <input type="hidden" name="quiz_question_id[{{question[1]}}]" value="{{question[2]}}">
+                
+                <!-- Name for radio options must be the same so that only one option can be selected -->
+                <!-- But they must be different for different questions, otherwise other options can't be selected for later questions -->
+                <!-- Same for id, otherwise I can't target a specific choice for a question -->
+                <!-- To solve this, I passed them as an array that increments every time one loop has finished -->
+                
+                <input type="radio" name="answer[{{question[1]}}]" id="choice_a_{{question[1]}}" value="a"> 
+                <label for="choice_a_{{question[1]}}">{{question[4]}}</label><br>
+
+                <input type="radio" name="answer[{{question[1]}}]" id="choice_b_{{question[1]}}" value="b"> 
+                <label for="choice_b_{{question[1]}}">{{question[5]}}</label><br>
+
+                <input type="radio" name="answer[{{question[1]}}]" id="choice_c_{{question[1]}}" value="c"> 
+                <label for="choice_c_{{question[1]}}">{{question[6]}}</label><br>
+
+                <input type="radio" name="answer[{{question[1]}}]" id="choice_d_{{question[1]}}" value="d"> 
+                <label for="choice_d_{{question[1]}}">{{question[7]}}</label><br>
+            </div>
+            <hr>
+            {% endfor %}
+            <div class="col-md-12">
+                <input type="hidden" value="">
+                <input type="submit" value="Submit Answers" class="btn btn-info">
+            </div>
+        </form>
+    </div>
+    {% endblock %}

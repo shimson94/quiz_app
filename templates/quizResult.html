@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block maincontent %}
+<div class="row">
+    <div class="col-md-12">
+        <h3>Quiz Review</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- results passed from app.py -->
+                <h6>Total Marks: {{results[0][1]}}</h6>
+                <h6>User Score: {{results[0][2]}}</h6>
+            </div>
+        </div>
+
+        {% for question in results %}
+        <!-- Loop through each question that was taken in the quiz -->
+        <div class="col-md-12"><p>{{question[4]}}</p></div>
+        <!-- Display question -->
+        <div class="col-md-12">
+            <!-- q_map passed from app.py -->
+            <!-- All radios are disabled so that they can't be used when reviewing an already submitted quiz -->
+            <!-- Name and id passed as arrays so that there aren't any other questions which have radios with the same name and id -->
+            <!-- If the q_map of user answer = q_map of radio option name, check it as this means that this was what the user answered in the quiz -->
+            <!-- If the q_map of the actual anser = q_map of user answer, display user answer in green as it was correct -->
+            <!-- Otherwise display user answer in red and the actual answer in green -->
+
+            <input type="radio" name="answer[{{question[3]}}]" id="choice_a_{{question[3]}}" value="a" disabled {% if q_map[question[10]] == 6 %}checked{% endif %} > 
+            <label for="choice_a_{{question[3]}}" class='{% if q_map[question[5]] == 6 %}text-success{% endif %}{% if q_map[question[10]] == 6 
+                and q_map[question[5]] != 6 %}text-danger{% endif %}' >{{question[6]}}</label><br>
+
+            <input type="radio" name="answer[{{question[3]}}]" id="choice_b_{{question[3]}}" value="b" disabled {% if q_map[question[10]] == 7 %}checked{% endif %} > 
+            <label for="choice_b_{{question[3]}}" class='{% if q_map[question[5]] == 7 %}text-success{% endif %}{% if q_map[question[10]] == 7 
+                and q_map[question[5]] != 7 %}text-danger{% endif %}' >{{question[7]}}</label><br>
+
+            <input type="radio" name="answer[{{question[3]}}]" id="choice_c_{{question[3]}}" value="c" disabled {% if q_map[question[10]] == 8 %}checked{% endif %} > 
+            <label for="choice_c_{{question[3]}}" class='{% if q_map[question[5]] == 8 %}text-success{% endif %}{% if q_map[question[10]] == 8 
+                and q_map[question[5]] != 8 %}text-danger{% endif %}'>{{question[8]}}</label><br>
+
+            <input type="radio" name="answer[{{question[3]}}]" id="choice_d_{{question[3]}}" value="d" disabled {% if q_map[question[10]] == 9 %}checked{% endif %} > 
+            <label for="choice_d_{{question[3]}}" class='{% if q_map[question[5]] == 9 %}text-success{% endif %}{% if q_map[question[10]] == 9 
+                and q_map[question[5]] != 9 %}text-danger{% endif %}' >{{question[9]}}</label><br>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

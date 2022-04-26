@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block maincontent %}
+<div class="row">
+    <div class="col-md-6">
+        <h3>Your classes</h3>
+        <table class="table table-hover table-striped table-bordered">
+        <!-- Table for students to see information about all the classes that they have joined -->
+            <thead>
+                <tr>
+                    <th>Class Name</th>
+                    <th>Teacher</th>
+                    <th>Class Token</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if classes %}
+                {% for eachClass in classes %}
+                <!-- classes information passed from app.py -->
+                <tr>
+                    <td>{{eachClass[1]}}</td>
+                    <td>Mrs {{eachClass[2]}}</td>
+                    <td>{{eachClass[3]}}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="3">No data available</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h3>Join a class</h3>
+        <div class="row">
+        <!-- Form to submit a class token to join the class with the corresponding class token -->
+            <form action="/join-class" method="post" class="row g-3" id="joinClass">
+                <div class="col-md-6">
+                    <label for="class_token" class="form-label">Enter a class token.</label>
+                    <input type="text" class="form-control" name="class_token" id="class_token" required />
+                    <div class="invalid-feedback">Invalid class token.</div>
+                </div>
+                <div class="col-md-12">
+                    <input type="submit" value="Join a class" class="btn btn-info" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
